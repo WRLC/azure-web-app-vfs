@@ -51,6 +51,6 @@ def new_login():
         user_login = Login(user_data)
         user_login.user_login(session=session)  # Log the user in
 
-        return redirect(url_for('download.hello_world'))
+        return redirect(url_for('file.hello_world'))
 
     return "no login cookie"  # if the login cookie is not present, return an error

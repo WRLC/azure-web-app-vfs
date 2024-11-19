@@ -19,7 +19,7 @@ class File(db.Model):
     name: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
     filename: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     credential_id: Mapped[int] = mapped_column(ForeignKey('credential.id'), nullable=False)
-    credential: Mapped["Credential"] = relationship(back_populates='file')
+    credential: Mapped["Credential"] = relationship(back_populates='files')
 
     def __repr__(self):
         return f'<File {self.name}>'
@@ -60,3 +60,12 @@ class File(db.Model):
         key = os.getenv('FERNET_KEY')
         fernet = Fernet(key)
         return fernet.decrypt(pwd).decode()
+
+    @staticmethod
+    def get_files():
+        """
+        Get files
+        """
+        return db.session.execute(
+            db.select(File)
+        ).scalars().all()

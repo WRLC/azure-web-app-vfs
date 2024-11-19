@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Files</h1>
+    {% if files|length == 0 %}
+        <div class="alert alert-info" role="alert">
+            No files found.
+        </div>
+    {% else %}
+        <table class="table table-bordered table-hover table-sm">
+            <thead class="table-dark sticky-top">
+                <tr>
+                    <th>File Name</th>
+                    <th>Application</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for file in files %}
+                    <tr>
+                        <td>{{ file.name }}</td>
+                        <td>{{ file.credential.app_name }}</td>
+                        <td><a href="{{ url_for('file.edit', id=file.id) }}">Edit</a></td>
+                        <td><a href="{{ url_for('file.delete', id=file.id) }}">Delete</a></td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    {% endif %}
+{% endblock %}

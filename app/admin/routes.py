@@ -3,6 +3,7 @@ Admin routes
 """
 from functools import wraps
 from flask import session, current_app, redirect, url_for, Blueprint
+from app import forbidden
 
 bp = Blueprint('admin', __name__, url_prefix='/admin')
 
@@ -33,7 +34,7 @@ def admin():
     """
     if session['admin']:
         return 'Admin page'
-    return current_app.forbidden("You are not an admin")
+    return forbidden("You are not an admin")
 
 
 @bp.route('/files')
@@ -46,7 +47,7 @@ def admin_files():
     """
     if session['admin']:
         return 'Admin files page'
-    return current_app.forbidden("You are not an admin")
+    return forbidden("You are not an admin")
 
 
 @bp.route('/files/new/')
@@ -59,7 +60,7 @@ def admin_files_new():
     """
     if session['admin']:
         return 'Admin new file page'
-    return current_app.forbidden("You are not an admin")
+    return forbidden("You are not an admin")
 
 
 @bp.route('/files/<file_id>/')
@@ -72,7 +73,7 @@ def admin_files_edit(file_id):
     """
     if session['admin']:
         return 'Admin edit file page: ' + file_id
-    return current_app.forbidden("You are not an admin")
+    return forbidden("You are not an admin")
 
 
 @bp.route('/files/<file_id>/delete/')
@@ -85,7 +86,7 @@ def admin_files_delete(file_id):
     """
     if session['admin']:
         return 'Admin delete file page: ' + file_id
-    return current_app.forbidden("You are not an admin")
+    return forbidden("You are not an admin")
 
 
 @bp.route('/credentials')
@@ -98,4 +99,4 @@ def admin_credentials():
     """
     if session['admin']:
         return 'Admin credentials page'
-    return current_app.forbidden("You are not an admin")
+    return forbidden("You are not an admin")

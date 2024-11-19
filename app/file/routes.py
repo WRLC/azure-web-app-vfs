@@ -2,7 +2,7 @@
 This is the main file for the Flask app.
 """
 from functools import wraps
-from flask import session, redirect, url_for, current_app, send_file, Blueprint
+from flask import session, redirect, url_for, current_app, send_file, Blueprint, render_template
 from app.models.file import File
 
 bp = Blueprint('file', __name__)
@@ -33,13 +33,13 @@ def auth_required(f):
 
 @bp.route('/')
 @auth_required
-def hello_world():
+def index():
     """
     Home page
 
     :return: List of files to download
     """
-    return 'Hello World!'
+    return render_template('index.html', files=File.get_files())
 
 
 @bp.route('/logout/')

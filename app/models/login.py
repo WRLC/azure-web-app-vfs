@@ -12,9 +12,6 @@ class Login:
     def __init__(self, user_data: dict):
         self.user_data = user_data
 
-    def __repr__(self):
-        return f"Login('{self.user_data['username']}')"
-
     def user_login(self, session: SessionMixin):
         """
         Log the user in
@@ -22,18 +19,19 @@ class Login:
         :param session:
         :return:
         """
-        session['username']: str = self.user_data['username']  # Set the username
-        session['admin'] = self.user_admin()
+        session['username']: str = self.user_data['UserName']  # Set the username
+        session['admin'] = self.user_admin(session)
 
         return self
 
-    def user_admin(self) -> bool:
+    @staticmethod
+    def user_admin(session) -> bool:
         """
         Check if user is an admin
 
         :return:
         """
-        if self.user_data['username'] in current_app.config['ADMINS']:
+        if session['username'] in current_app.config['ADMINS']:
             return True
 
         return False
