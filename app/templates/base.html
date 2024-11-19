@@ -6,7 +6,7 @@
         <title>
             {% block title %}
                 {% if title %}
-                    {{ title }} -
+                    {{ title }} |
                 {% endif %}
                 {{ config.SITE_NAME }}
             {% endblock %}
@@ -16,7 +16,7 @@
     <link rel="shortcut icon" href="{{ url_for('static', filename='images/favicon.ico') }}">
 </head>
 <body>
-    <header class="header">
+    <header class="header mb-4">
         <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
             <div class="container">
                 <div class="collapse navbar-collapse" id="navbarText">
@@ -28,7 +28,7 @@
                             </a>
                         </li>
                         {% if 'username' in session %}
-                            {% if 'admin' in session['authorizations'] %}
+                            {% if session.username in config.ADMINS %}
                                 <li class="nav-item active">
                                     <a class="nav-link" href="{{ url_for('admin.admin') }}">Admin</a>
                                 </li>

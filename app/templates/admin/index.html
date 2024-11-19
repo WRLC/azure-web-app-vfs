@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('file.index') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item active">Admin</li>
+        </ol>
+    </nav>
+    <h1>Admin</h1>
+    <div class="row">
+        <ul class="list-group">
+            <li class="list-group-item">
+                <a href="{{ url_for('admin.admin_files') }}">Files</a>
+            </li>
+            <li class="list-group-item">
+                <a href="{{ url_for('admin.admin_credentials') }}">App Credentials</a>
+            </li>
+        </ul>
+    </div>
+{% endblock %}

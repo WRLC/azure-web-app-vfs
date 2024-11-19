@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+{% if credentials|length == 0 %}
+    <div class="alert alert-info" role="alert">
+        No credentials found. Before a file can be added, at least one app credential must be defined.
+    </div>
+{% else %}
+    {{ form }}
+{% endif %}
+{% endblock %}
