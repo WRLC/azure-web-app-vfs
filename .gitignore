@@ -23,6 +23,7 @@ log
 *.sql
 __pycache__/
 instance
+.mypy_cache/
 
 # Coverage reports
 htmlcov/
