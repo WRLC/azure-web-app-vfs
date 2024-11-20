@@ -2,7 +2,6 @@
 This is the main file for the Flask app.
 """
 from flask import send_file, Blueprint, render_template, session, flash, redirect, url_for, request
-from werkzeug.exceptions import Unauthorized
 from app.extensions import auth_required, forbidden, db, internalerror
 from app.forms.file_form import FileForm
 from app.models.credential import Credential

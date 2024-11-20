@@ -6,7 +6,6 @@ from base64 import b64encode
 import requests
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
-from werkzeug.exceptions import Unauthorized
 from app.extensions import db
 
 
