@@ -20,7 +20,7 @@ class Credential(Model):
     app_name: Mapped[str] = mapped_column(String(64), unique=True, nullable=False)
     username: Mapped[str] = mapped_column(String(255), nullable=False)
     password: Mapped[str] = mapped_column(String(255), nullable=False)
-    files: Mapped[List["File"]] = relationship(back_populates='credential')  # type: ignore
+    files: Mapped[List["File"]] = relationship(back_populates='credential')  # type: ignore # noqa: F821
 
     def __repr__(self):
         return f'<Credential {self.username}>'

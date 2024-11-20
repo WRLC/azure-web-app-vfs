@@ -3,7 +3,7 @@ Flask Application Factory
 """
 import os.path
 
-from flask import Flask, Blueprint, session, redirect, url_for, render_template
+from flask import Flask, Blueprint, session, redirect, url_for, render_template  # noqa: F401
 from config import Config
 
 
@@ -54,7 +54,7 @@ def create_app(config_class=Config):
 
     # App context
     # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
-    from app.models import file, credential
+    from app.models import file, credential  # noqa: F401
     with application.app_context():
         db.create_all()  # Create the database tables
 

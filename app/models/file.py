@@ -22,7 +22,7 @@ class File(Model):
     id: Mapped[int] = mapped_column(primary_key=True)
     url: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     credential_id: Mapped[int] = mapped_column(ForeignKey('credential.id'), nullable=False)
-    credential: Mapped["Credential"] = relationship(back_populates='files')  # type: ignore
+    credential: Mapped["Credential"] = relationship(back_populates='files')  # type: ignore # noqa: F821
 
     def get_filename(self) -> str:
         """
