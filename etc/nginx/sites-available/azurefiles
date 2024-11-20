@@ -1,0 +1,9 @@
+server {
+    listen 80;
+    server_name azurefiles.wrlc.org;
+
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/opt/local/azure-web-app-vfs/azurefiles.sock;
+    }
+}

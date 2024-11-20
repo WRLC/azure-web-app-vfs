@@ -1,0 +1,13 @@
+[Unit]
+Description=Gunicorn instance to serve azurefiles
+After=network.target
+
+[Service]
+User=azurefiles
+Group=www-data
+WorkingDirectory=/opt/local/azure-web-app-vfs
+Environment="PATH=/opt/local/azure-web-app-vfs/venv/bin"
+ExecStart=/opt/local/azure-web-app-vfs/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 wsgi:app
+
+[Install]
+WantedBy=multi-user.target
