@@ -1,7 +1,7 @@
 """
 Routes for the login blueprint
 """
-from pymemcache.client.base import Client as memcacheClient
+from pymemcache.client.base import Client as memcacheClient  # type: ignore
 from flask import current_app, redirect, request, session, url_for, Blueprint
 from app.models.login import Login
 

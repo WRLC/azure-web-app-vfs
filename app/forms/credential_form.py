@@ -1,9 +1,9 @@
 """
 This file contains the form for the credential model.
 """
-from flask_wtf import FlaskForm
-from wtforms import StringField
-from wtforms.validators import DataRequired
+from flask_wtf import FlaskForm  # type: ignore
+from wtforms import StringField  # type: ignore
+from wtforms.validators import DataRequired  # type: ignore
 
 
 class CredentialForm(FlaskForm):
@@ -25,3 +25,9 @@ class CredentialForm(FlaskForm):
         description='Probably the FTPS password from the resource\'s Deployment Center',  # description
         validators=[DataRequired()]  # required field
     )
+
+    def __repr__(self):
+        return f'<CredentialForm: {self.app_name.data}>'
+
+    def __str__(self):
+        return f'<CredentialForm: {self.app_name.data}>'

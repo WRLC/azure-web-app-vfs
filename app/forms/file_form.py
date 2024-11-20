@@ -1,12 +1,12 @@
 """
 This file contains the form for the File model.
 """
-from flask_wtf import FlaskForm
-from wtforms import StringField, SelectField
-from wtforms.validators import DataRequired, URL, NoneOf
+from flask_wtf import FlaskForm  # type: ignore
+from wtforms import StringField, SelectField  # type: ignore
+from wtforms.validators import DataRequired, URL, NoneOf  # type: ignore
 
 
-class FileForm(FlaskForm):  # pylint: disable=too-few-public-methods
+class FileForm(FlaskForm):
     """
     File form
     """
@@ -27,3 +27,9 @@ class FileForm(FlaskForm):  # pylint: disable=too-few-public-methods
             NoneOf([0], message='Please select an app credential')  # not the default value
         ],
     )
+
+    def __repr__(self):
+        return f'<FileForm: {self.url.data}>'
+
+    def __str__(self):
+        return f'<FileForm: {self.url.data}>'

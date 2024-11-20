@@ -3,20 +3,26 @@ File class
 """
 import os.path
 from base64 import b64encode
-import requests
+from typing import TYPE_CHECKING
+import requests  # type: ignore
 from sqlalchemy import ForeignKey, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from app.extensions import db
 
+if TYPE_CHECKING:
+    from flask_sqlalchemy.model import Model  # pylint: disable=ungrouped-imports
+else:
+    Model = db.Model
 
-class File(db.Model):
+
+class File(Model):
     """
     File class
     """
     id: Mapped[int] = mapped_column(primary_key=True)
     url: Mapped[str] = mapped_column(String(255), unique=True, nullable=False)
     credential_id: Mapped[int] = mapped_column(ForeignKey('credential.id'), nullable=False)
-    credential: Mapped["Credential"] = relationship(back_populates='files')
+    credential: Mapped["Credential"] = relationship(back_populates='files')  # type: ignore
 
     def get_filename(self) -> str:
         """

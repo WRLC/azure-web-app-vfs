@@ -19,8 +19,8 @@ class Login:
         :param session:
         :return:
         """
-        session['username']: str = self.user_data['UserName']  # Set the username
-        session['credential'] = self.user_admin(session)
+        session['username'] = self.user_data['UserName']  # Set the username
+        session['admin'] = self.user_admin(session)  # Set the user's admin status
 
         return self
 
