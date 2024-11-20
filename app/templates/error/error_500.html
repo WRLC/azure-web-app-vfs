@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Internal Error</h1>
+    {% if e is defined %}
+        <p>{{ e }}</p>
+    {% else %}
+        <p>There was an error loading this page.</p>
+    {% endif %}
+{% endblock %}

@@ -1,38 +1,10 @@
 """
 Flask Application Factory
 """
+import os.path
+
 from flask import Flask, Blueprint, session, redirect, url_for, render_template
 from config import Config
-
-
-def badrequest(e):
-    """
-    400 error handler
-
-    :param e: error
-    :return: 400 error template
-    """
-    return render_template('error_400.html', e=e), 400  # render the error template
-
-
-def forbidden(e):
-    """
-    403 error handler
-
-    :param e: error
-    :return: 403 error template
-    """
-    return render_template('unauthorized.html', e=e), 403  # render the error template
-
-
-def internalerror(e):
-    """
-    500 error handler
-
-    :param e: error
-    :return: 500 error template
-    """
-    return render_template('error_500.html', e=e), 500  # render the error template
 
 
 def create_app(config_class=Config):
@@ -52,19 +24,33 @@ def create_app(config_class=Config):
 
     # Register blueprints here
     # pylint: disable=import-outside-toplevel
-    from app.file.routes import bp as file_bp
-    application.register_blueprint(file_bp)  # Register the file blueprint
+    from app.home.routes import bp as home_bp
+    application.register_blueprint(home_bp)  # Register the home blueprint
 
     from app.login.routes import bp as login_bp
     application.register_blueprint(login_bp)  # Register the login blueprint
 
-    from app.admin.routes import bp as admin_bp
-    application.register_blueprint(admin_bp)  # Register the admin blueprint
+    from app.file.routes import bp as file_bp
+    application.register_blueprint(file_bp)  # Register the file blueprint
+
+    from app.credential.routes import bp as credential_bp
+    application.register_blueprint(credential_bp)  # Register the credential blueprint
 
     # Register error handlers
+    from app.extensions import badrequest, forbidden, internalerror
     application.register_error_handler(400, badrequest)
     application.register_error_handler(403, forbidden)
     application.register_error_handler(500, internalerror)
+
+    @application.template_filter('basename_filter')
+    def basename_filter(path):
+        """
+        Base name filter for Jinja2
+
+        :param path: path
+        :return: base name
+        """
+        return os.path.basename(path)
 
     # App context
     # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import

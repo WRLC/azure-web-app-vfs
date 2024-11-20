@@ -23,7 +23,7 @@ class Credential(db.Model):
     @staticmethod
     def get_credentials():
         """
-        Get credentials
+        Get credential
         """
         return db.session.execute(
             db.select(Credential)

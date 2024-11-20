@@ -22,19 +22,22 @@
                 <div class="collapse navbar-collapse" id="navbarText">
                     <ul class="navbar-nav mr-auto">
                         <li class="navbar-header">
-                            <a class="navbar-brand" href="{{ url_for('file.index') }}">
+                            <a class="navbar-brand" href="{{ url_for('home.index') }}">
                                 <img class="logo" src="{{ url_for('static', filename='images/wrlc-logo-7-white.png') }}" alt="WRLC logo" />
                                 {{ config.SITE_NAME }}
                             </a>
                         </li>
                         {% if 'username' in session %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ url_for('file.index') }}">Files</a>
+                            </li>
                             {% if session.username in config.ADMINS %}
-                                <li class="nav-item active">
-                                    <a class="nav-link" href="{{ url_for('admin.admin') }}">Admin</a>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ url_for('credential.index') }}">Credentials</a>
                                 </li>
                             {% endif %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{{ url_for('file.logout') }}">Logout</a>
+                                <a class="nav-link" href="{{ url_for('home.logout') }}">Logout</a>
                             </li>
                         {% endif %}
                     </ul>

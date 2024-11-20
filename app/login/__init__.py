@@ -1,3 +1,3 @@
 """
-This is the admin package that contains the admin blueprint.
+This is the credential package that contains the credential blueprint.
 """

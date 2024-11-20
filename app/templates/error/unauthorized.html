@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Unauthorized</h1>
+    {% if e is defined %}
+        <p>{{ e }}</p>
+    {% else %}
+        <p>You are not authorized to view this page.</p>
+    {% endif %}
+{% endblock %}

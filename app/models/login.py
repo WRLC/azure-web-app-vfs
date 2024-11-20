@@ -20,14 +20,14 @@ class Login:
         :return:
         """
         session['username']: str = self.user_data['UserName']  # Set the username
-        session['admin'] = self.user_admin(session)
+        session['credential'] = self.user_admin(session)
 
         return self
 
     @staticmethod
     def user_admin(session) -> bool:
         """
-        Check if user is an admin
+        Check if user is an credential
 
         :return:
         """

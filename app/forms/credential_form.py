@@ -10,6 +10,18 @@ class CredentialForm(FlaskForm):
     """
     Credential form
     """
-    app_name = StringField('App Name', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    password = StringField('Password', validators=[DataRequired()])
+    app_name = StringField(  # app name field
+        'App Name',  # label
+        description='Ideally the Azure resource\'s name (to easily identify the app)',  # description
+        validators=[DataRequired()]  # required field
+    )
+    username = StringField(  # username field
+        'Username',  # label
+        description='Probably the FTPS username from the resource\'s Deployment Center',  # description
+        validators=[DataRequired()]  # required field
+    )
+    password = StringField(  # password field
+        'Password',  # label
+        description='Probably the FTPS password from the resource\'s Deployment Center',  # description
+        validators=[DataRequired()]  # required field
+    )

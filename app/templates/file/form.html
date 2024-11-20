@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h1>{{ title }}</h1>
+{% if credentials|length == 0 %}
+    <div class="alert alert-info" role="alert">
+        No credentials found. Before a file can be added, at least one app credential must be defined.
+    </div>
+{% else %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('file.index') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('file.index') }}">Files</a>
+            </li>
+            <li class="breadcrumb-item active">{{ title }}</li>
+        </ol>
+    </nav>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="mb-3 required">
+            {{ form.url.label(class="form-label") }}
+            {{ form.url(class="form-control") }}
+            <small id="urlHelp" class="form-text text-muted">{{ form.url.description }}</small>
+            {% if form.url.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.url.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.credential_id.label(class="form-label") }}
+            {{ form.credential_id(class="form-select") }}
+            <small id="credential_idHelp" class="form-text text-muted">{{ form.credential_id.description }}</small>
+            {% if form.credential_id.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.credential_id.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="actions">
+            <input type="submit" value="{{ title }}" class="btn btn-primary">
+            <a href="{{ url_for('file.index') }}" class="btn btn-dark">Cancel</a>
+        </div>
+    </form>
+
+{% endif %}
+{% endblock %}
