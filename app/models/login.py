@@ -19,19 +19,19 @@ class Login:
         :param session:
         :return:
         """
-        session['username'] = self.user_data['UserName']  # Set the username
-        session['admin'] = self.user_admin(session)  # Set the user's admin status
+        session['username'] = self.user_data['UserName']  # set the username
+        session['admin'] = self.user_admin(session)  # set the user's admin status
 
         return self
 
     @staticmethod
     def user_admin(session) -> bool:
         """
-        Check if user is an credential
+        Check if user is an admin
 
         :return:
         """
-        if session['username'] in current_app.config['ADMINS']:
-            return True
+        if session['username'] in current_app.config['ADMINS']:  # if the username is in the admin list
+            return True  # return True
 
-        return False
+        return False  # if the username is not in the admin list, return False

@@ -1,3 +1,6 @@
+"""
+WSGI config for app project.
+"""
 from app import create_app
 
 app = create_app()
