@@ -7,6 +7,19 @@ User=azurefiles
 Group=www-data
 WorkingDirectory=/opt/local/azure-web-app-vfs
 Environment="PATH=/opt/local/azure-web-app-vfs/venv/bin"
+# Flask Env Vars
+Environment="SECRET_KEY="
+Environment="SHARED_SECRET="
+Environment="SQLALCHEMY_DATABASE_URI="
+Environment="SITE_NAME="
+Environment="SITE_URL="
+Environment="SAML_SP="
+Environment="COOKIE_ISSUING_FILE=/login"
+Environment="LOGOUT_SCRIPT=/logout"
+Environment="COOKIE_PREFIX=_wr_"
+Environment="MEMCACHED_SERVER="
+Environment="MEMCACHED_PORT=11211"
+Environment="SERVICE_SLUG=webappvfs"
 ExecStart=/opt/local/azure-web-app-vfs/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 wsgi:app
 
 [Install]
