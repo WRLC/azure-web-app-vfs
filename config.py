@@ -2,11 +2,7 @@
 This module contains the configuration settings for the application
 """
 import os
-from dotenv import load_dotenv
 from environs import Env
-
-load_dotenv()  # Load the environment variables
-env = Env()  # Create an instance of the Env class
 
 
 class Config:
@@ -16,8 +12,6 @@ class Config:
     SECRET_KEY = os.getenv("SECRET_KEY")
     SHARED_SECRET = os.getenv("SHARED_SECRET")
     SQLALCHEMY_DATABASE_URI = os.getenv("SQLALCHEMY_DATABASE_URI")
-    LOG_FILE = os.getenv("LOG_FILE")
-    LOG_DIR = os.getenv("LOG_DIR")
     SITE_NAME = os.getenv("SITE_NAME")
     SITE_URL = os.getenv("SITE_URL")
     SAML_SP = os.getenv("SAML_SP")

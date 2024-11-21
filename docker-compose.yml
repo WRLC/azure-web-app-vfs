@@ -10,6 +10,19 @@ services:
       - "traefik.http.routers.azure_web_app_vfs.rule=Host(`azure_web_app_vfs.wrlc.localhost`)"
       - "traefik.http.routers.azure_web_app_vfs.tls=true"
       - "traefik.http.routers.azure_web_app_vfs.entrypoints=websecure"
+    environment:
+      SECRET_KEY: "thisisasecretkey"
+      SHARED_SECRET: "thisisasharedsecret"
+      SQLALCHEMY_DATABASE_URI: "mariadb+mariadbconnector://user:password@azure_web_app_vfs_db:3306/mydb"
+      SITE_NAME: "WRLC Azure Web App VFS"
+      SITE_URL: "https://azure_web_app_vfs.wrlc.localhost"
+      SAML_SP: "https://simplesamlphp.wrlc.localhost"
+      COOKIE_ISSUING_FILE: "/login"
+      LOGOUT_SCRIPT: "/logout"
+      COOKIE_PREFIX: "_wr_"
+      MEMCACHED_SERVER: "aladinsp-memcached"
+      MEMCACHED_PORT: "11211"
+      SERVICE_SLUG: "webappvfs"
     depends_on:
       - azure_web_app_vfs_db
     networks:
