@@ -20,6 +20,7 @@ Environment=COOKIE_PREFIX=_wr_
 Environment=MEMCACHED_SERVER=
 Environment=MEMCACHED_PORT=11211
 Environment=SERVICE_SLUG=webappvfs
+Environment=ADMINS=
 ExecStart=/opt/local/azure-web-app-vfs/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 wsgi:app
 
 [Install]
