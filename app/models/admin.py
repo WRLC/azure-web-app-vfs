@@ -22,3 +22,37 @@ class Admin(Model):
 
     def __repr__(self):
         return f"Admin('{self.uid}')"
+
+    @staticmethod
+    def get_admins():
+        """
+        Get admins
+        """
+        admins = db.session.execute(
+            db.select(Admin)
+        ).scalars().all()
+
+        return [admin.uid for admin in admins]
+
+    @staticmethod
+    def get_admin_by_uid(uid):
+        """
+        Get an admin by id
+        """
+        return db.session.execute(
+            db.select(Admin).where(Admin.uid == uid)
+        ).one_or_none()
+
+    @staticmethod
+    def is_admin(uid):
+        """
+        Check if a user is an admin
+        """
+        admin_uid = db.session.execute(  # get the admin UID
+            db.select(Admin).where(Admin.uid == uid)
+        ).one_or_none()
+
+        if admin_uid is None:  # if the admin UID exists, return True
+            return False
+
+        return False  # if the admin UID does not exist, return False

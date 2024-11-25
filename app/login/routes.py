@@ -2,10 +2,9 @@
 Routes for the login blueprint
 """
 from pymemcache.client.base import Client as memcacheClient  # type: ignore
-from flask import current_app, redirect, request, session, url_for, Blueprint
+from flask import current_app, redirect, request, session, url_for
+from app.login import bp
 from app.models.login import Login
-
-bp = Blueprint('login', __name__, url_prefix='/login')
 
 
 @bp.route('/')

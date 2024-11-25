@@ -4,7 +4,9 @@
     <div class="row">
         <h1 class="col col-11">Files</h1>
         <span class="col col-1 text-end">
-            <a href="{{ url_for('file.new_file') }}" class="btn btn-primary">Add file</a>
+            {% if session.username in get_admins() %}
+                <a href="{{ url_for('file.new_file') }}" class="btn btn-primary">Add file</a>
+            {% endif %}
         </span>
     </div>
     {% if files|length > 0 %}
@@ -14,8 +16,12 @@
                     <thead class="table-dark sticky-top">
                         <tr>
                             <th scope="col" class="col col-3">Name</th>
-                            <th scope="col" class="col col-7">URL</th>
-                            <th scope="col" class="col col-2"></th>
+                            {% if session.username in get_admins() %}
+                                <th scope="col" class="col col-7">URL</th>
+                                <th scope="col" class="col col-2"></th>
+                            {% else %}
+                                <th scope="col" class="col col-9">URL</th>
+                            {% endif %}
                         </tr>
                     </thead>
                     <tbody>
@@ -26,14 +32,16 @@
                                         <a href="{{ url_for('file.download', file_id=file.id) }}">{{ file.url|basename_filter }}</a>
                                     </th>
                                     <td><small>{{ file.url }}</small></td>
-                                    <td class="text-end">
-                                        <a href="{{ url_for('file.edit_file', file_id=file.id) }}" class="btn btn-sm btn-primary">
-                                            Edit
-                                        </a>
-                                        <a href="{{ url_for('file.delete_file', file_id=file.id) }}" class="btn btn-sm btn-danger">
-                                            Delete
-                                        </a>
-                                    </td>
+                                    {% if session.username in get_admins() %}
+                                        <td class="text-end">
+                                            <a href="{{ url_for('file.edit_file', file_id=file.id) }}" class="btn btn-sm btn-primary">
+                                                Edit
+                                            </a>
+                                            <a href="{{ url_for('file.delete_file', file_id=file.id) }}" class="btn btn-sm btn-danger">
+                                                Delete
+                                            </a>
+                                        </td>
+                                    {% endif %}
                                 </tr>
                             {% endif %}
                         {% endfor %}
