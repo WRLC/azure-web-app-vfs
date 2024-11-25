@@ -54,7 +54,7 @@ def create_app(config_class=Config):
 
     # App context
     # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
-    from app.models import file, credential  # noqa: F401
+    from app.models import file, credential, admin  # noqa: F401
     with application.app_context():
         db.create_all()  # Create the database tables
 
