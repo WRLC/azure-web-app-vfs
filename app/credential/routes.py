@@ -53,7 +53,7 @@ def credentials_new():
 
             flash('Credential added successfully', 'success')  # show a success message
 
-            return redirect(url_for('credential.credentials'))  # redirect to the credential page
+            return redirect(url_for('credential.index'))  # redirect to the credential page
 
         return render_template(  # if the form is not submitted, render the form
             'credential/form.html',  # template
@@ -87,7 +87,7 @@ def credentials_edit(credential_id):
 
             flash('Credential updated successfully', 'success')  # show a success message
 
-            return redirect(url_for('credential.credentials'))  # redirect to the credential page
+            return redirect(url_for('credential.index'))  # redirect to the credential page
 
         return render_template(  # if the form is not submitted, render the form
             'credential/form.html',  # template
@@ -117,7 +117,7 @@ def credentials_delete(credential_id):
 
             flash('Credential deleted successfully', 'success')  # show a success message
 
-            return redirect(url_for('credential.credentials'))  # redirect to the credential page
+            return redirect(url_for('credential.index'))  # redirect to the credential page
 
         return render_template(  # if the form is not submitted, render the form
             'credential/delete.html',  # template
