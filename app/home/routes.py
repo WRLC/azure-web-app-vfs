@@ -1,10 +1,9 @@
 """
 Home routes
 """
-from flask import session, redirect, current_app, Blueprint, url_for
+from flask import session, redirect, current_app, url_for
 from app.extensions import auth_required
-
-bp = Blueprint('home', __name__, url_prefix='/')  # Create the home blueprint
+from app.home import bp
 
 
 @bp.route('/')

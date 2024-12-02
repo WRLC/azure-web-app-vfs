@@ -1,8 +1,8 @@
 """
 Login model
 """
-from flask import current_app
 from flask.sessions import SessionMixin
+from app.models.admin import Admin
 
 
 class Login:
@@ -20,18 +20,6 @@ class Login:
         :return:
         """
         session['username'] = self.user_data['UserName']  # set the username
-        session['admin'] = self.user_admin(session)  # set the user's admin status
+        session['admin'] = Admin.is_admin(self.user_data['UserName'])  # set the user's admin status
 
         return self
-
-    @staticmethod
-    def user_admin(session) -> bool:
-        """
-        Check if user is an admin
-
-        :return:
-        """
-        if session['username'] in current_app.config['ADMINS']:  # if the username is in the admin list
-            return True  # return True
-
-        return False  # if the username is not in the admin list, return False

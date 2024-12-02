@@ -2,12 +2,6 @@
 This module contains the configuration settings for the application
 """
 import os
-from dotenv import load_dotenv
-from environs import Env
-
-load_dotenv()
-env = Env()
-env.read_env()
 
 
 class Config:
@@ -26,7 +20,6 @@ class Config:
     MEMCACHED_SERVER = os.getenv("MEMCACHED_SERVER")
     MEMCACHED_PORT = os.getenv("MEMCACHED_PORT")
     SERVICE_SLUG = os.getenv("SERVICE_SLUG")
-    ADMINS = env.list("ADMINS")
 
     def __repr__(self):
         return f'<Config {self.SITE_URL}>'

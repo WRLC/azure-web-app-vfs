@@ -1,12 +1,12 @@
 """
 Admin routes
 """
-from flask import session, redirect, url_for, Blueprint, render_template, flash, request
+from flask import session, redirect, url_for, render_template, flash, request
+from app.credential import bp
 from app.extensions import db, forbidden, auth_required
+from app.models.admin import Admin
 from app.models.credential import Credential
 from app.forms.credential_form import CredentialForm
-
-bp = Blueprint('credential', __name__, url_prefix='/credentials')
 
 
 @bp.route('/')
@@ -17,7 +17,7 @@ def index():
 
     :return: App credentials landing page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         return render_template(  # render the credential page
             'credential/index.html',  # template
@@ -36,7 +36,7 @@ def credentials_new():
 
     :return: Add app credential page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         form = CredentialForm()  # create a new form
 
@@ -72,7 +72,7 @@ def credentials_edit(credential_id):
 
     :return: Edit app credential page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         credential = Credential.get_credential_by_id(credential_id)  # get the credential by id
         form = CredentialForm(obj=credential)  # create a form with the credential data
@@ -106,7 +106,7 @@ def credentials_delete(credential_id):
 
     :return: Delete app credential page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         credential = Credential.get_credential_by_id(credential_id)  # get the credential by id
 

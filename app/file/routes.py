@@ -1,13 +1,13 @@
 """
 This is the main file for the Flask app.
 """
-from flask import send_file, Blueprint, render_template, session, flash, redirect, url_for, request
+from flask import send_file, render_template, session, flash, redirect, url_for, request
 from app.extensions import auth_required, forbidden, db, internalerror
+from app.file import bp
 from app.forms.file_form import FileForm
+from app.models.admin import Admin
 from app.models.credential import Credential
 from app.models.file import File
-
-bp = Blueprint('file', __name__, url_prefix='/files')  # Create the file blueprint
 
 
 @bp.route('/')
@@ -54,7 +54,7 @@ def new_file():
 
     :return: Add new file page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         form = FileForm()  # create a new form
         credentials = sorted(Credential.get_credentials(), key=lambda x: x.app_name)  # get the credentials
@@ -84,7 +84,7 @@ def new_file():
             title='Add File'  # title
         )
 
-    return render_template('file/new.html')
+    return forbidden("You are not an admin")  # if the user is not an admin, return a 403 error
 
 
 @bp.route('<file_id>/edit', methods=['GET', 'POST'])
@@ -95,7 +95,7 @@ def edit_file(file_id):
 
     :return: Edit file page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         file = File.get_file_by_id(file_id)  # get the file
 
@@ -135,7 +135,7 @@ def delete_file(file_id):
 
     :return: Delete file page
     """
-    if session['admin']:  # if the user is an admin
+    if session['username'] in Admin.get_admins():  # if the user is an admin
 
         file = File.get_file_by_id(file_id)  # get the file
 
