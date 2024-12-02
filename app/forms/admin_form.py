@@ -11,8 +11,8 @@ class AdminForm(FlaskForm):
     Admin form
     """
     uid = StringField(  # uid field
-        'UID',  # label
-        description='The admin\'s UID',  # description
+        'Username',  # label
+        description='The admin\'s SSO Username',  # description
         validators=[DataRequired()]  # required field
     )
 

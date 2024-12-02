@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('file.index') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('admin.index') }}">Admins</a>
+            </li>
+            <li class="breadcrumb-item active">{{ title }}</li>
+        </ol>
+    </nav>
+    <h1>{{ title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        <div class="mb-3">
+            Are you sure you want to delete the admin with the user ID "{{ admin.uid }}"?
+        </div>
+        <button type="submit" class="btn btn-danger">Delete</button>
+        <a href="{{ url_for('admin.index') }}" class="btn btn-dark">Cancel</a>
+    </form>
+{% endblock %}

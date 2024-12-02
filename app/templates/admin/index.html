@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('file.index') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item active">{{ title }}</li>
+        </ol>
+    </nav>
+    <div class="row">
+        <h1 class="col col-8">{{ title }}</h1>
+        <span class="text-end col col-4">
+            <a href="{{ url_for('admin.new') }}" class="btn btn-primary">Add Admin</a>
+        </span>
+    </div>
+    <div class="row">
+        <table class="table table-striped">
+            <thead class="table-dark">
+                <tr>
+                    <th scope="col" class="col-2">User ID</th>
+                    <th scope="col" class="col-10"></th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for admin in admins %}
+                    <tr>
+                        <th scope="row">{{ admin }}</th>
+                        <td>
+                            <a href="{{ url_for('admin.edit', uid=admin) }}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{{ url_for('admin.delete', uid=admin) }}" class="btn btn-danger btn-sm">Delete</a>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

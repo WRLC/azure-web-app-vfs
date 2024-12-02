@@ -41,7 +41,7 @@ class Admin(Model):
         """
         return db.session.execute(
             db.select(Admin).where(Admin.uid == uid)
-        ).one_or_none()
+        ).scalar_one_or_none()
 
     @staticmethod
     def is_admin(uid):
@@ -50,7 +50,7 @@ class Admin(Model):
         """
         admin_uid = db.session.execute(  # get the admin UID
             db.select(Admin).where(Admin.uid == uid)
-        ).one_or_none()
+        ).scalar_one_or_none()
 
         if admin_uid is None:  # if the admin UID exists, return True
             return False
