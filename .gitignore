@@ -19,7 +19,7 @@ build/
 .idea/
 docs/_build/
 .vscode
-log
+log/*.log
 *.sql
 __pycache__/
 instance
