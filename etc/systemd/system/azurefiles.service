@@ -20,7 +20,7 @@ Environment="COOKIE_PREFIX=_wr_"
 Environment="MEMCACHED_SERVER="
 Environment="MEMCACHED_PORT=11211"
 Environment="SERVICE_SLUG=webappvfs"
-ExecStart=/opt/local/azure-web-app-vfs/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 wsgi:app
+ExecStart=/opt/local/azure-web-app-vfs/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 --error-logfile /opt/local/azure-web-app-vfs/log/gunicorn.log --log-level 'warn' wsgi:app
 
 [Install]
 WantedBy=multi-user.target

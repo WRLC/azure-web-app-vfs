@@ -12,7 +12,7 @@ class FileForm(FlaskForm):
     """
     url = StringField(  # URL field
         'File URL',  # label
-        description='The Azure Kudo VFS API URL (found in the resource\'s "Advanced Tools"',  # description
+        description='The Azure Kudo VFS API URL (found in the resource\'s "Advanced Tools")',  # description
         validators=[  # validators
             DataRequired(),  # required field
             URL()  # URL validator
