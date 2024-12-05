@@ -37,6 +37,22 @@ def create_app(config_class=Config):
     application.register_error_handler(403, forbidden)
     application.register_error_handler(500, internalerror)
 
+    # Create the database schema
+    @application.cli.command('create_db')
+    @with_appcontext
+    def create_db():
+        """
+        Create the database
+
+        :return: None
+        """
+        # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
+        from app.models import file, credential, admin  # noqa: F401
+        with application.app_context():
+            db.create_all()  # Create the database tables
+            print('Database created')
+
+    application.cli.add_command(create_db)  # Add the create_db command
     application.cli.add_command(add_admin)  # Add the add_admin command
     application.cli.add_command(remove_admin)  # Add the remove_admin command
 
@@ -46,11 +62,5 @@ def create_app(config_class=Config):
         Shell context
         """
         return {'app': application, 'db': db}
-
-    # App context
-    # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
-    from app.models import file, credential, admin  # noqa: F401
-    with application.app_context():
-        db.create_all()  # Create the database tables
 
     return application
