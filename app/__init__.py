@@ -2,6 +2,7 @@
 Flask Application Factory
 """
 from flask import Flask, Blueprint, session, redirect, url_for, render_template  # noqa: F401
+from flask.cli import with_appcontext  # noqa: F401
 from app.admin import add_admin, remove_admin
 from app.admin.routes import bp as admin_bp
 from app.credential.routes import bp as credential_bp
