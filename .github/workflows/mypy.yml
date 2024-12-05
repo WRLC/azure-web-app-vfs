@@ -42,4 +42,4 @@ jobs:
     - name: Run mypy
       run: |
         source .venv/bin/activate
-        poetry run mypy app/
+        mypy app/
