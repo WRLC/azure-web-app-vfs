@@ -84,9 +84,9 @@ For the included configuration, however, the following prerequisites are require
 2. Create a virtual environment and install the dependencies:
 
     ```bash
-    python3 -m venv venv
-    source venv/bin/activate
-    pip install -r requirements.txt
+    python3 -m venv /path/to/venv
+    source /path/to/venv/bin/activate
+    poetry install
     ```
    
 3. Create the database and add a user with the necessary permissions:

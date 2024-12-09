@@ -1,10 +1,10 @@
 services:
   azure_web_app_vfs:
-    build: .
+    build:
+      context: .
     container_name: azure_web_app_vfs
     volumes:
       - .:/app
-    working_dir: /app
     labels:
       - "traefik.enable=true"
       - "traefik.http.routers.azure_web_app_vfs.rule=Host(`azure_web_app_vfs.wrlc.localhost`)"
@@ -23,6 +23,9 @@ services:
       MEMCACHED_SERVER: "aladinsp-memcached"
       MEMCACHED_PORT: "11211"
       SERVICE_SLUG: "webappvfs"
+    secrets:
+      - ssh_key
+      - gitconfig
     depends_on:
       - azure_web_app_vfs_db
     networks:
@@ -42,6 +45,12 @@ services:
       - mysql-data:/var/lib/mysql
     networks:
       - proxy
+
+secrets:
+  ssh_key:
+    file: ${SSH_KEY_FILE}
+  gitconfig:
+    file: ${GITCONFIG}
 
 volumes:
     mysql-data:
