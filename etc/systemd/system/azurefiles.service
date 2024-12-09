@@ -5,8 +5,8 @@ After=network.target
 [Service]
 User=azurefiles
 Group=www-data
-WorkingDirectory=/opt/local/azure-web-app-vfs
-Environment="PATH=/opt/local/azure-web-app-vfs/venv/bin"
+WorkingDirectory=/path/to/azure-web-app-vfs
+Environment="PATH=/path/to/venv/bin"
 # Flask Env Vars
 Environment="SECRET_KEY="
 Environment="SHARED_SECRET="
@@ -20,7 +20,7 @@ Environment="COOKIE_PREFIX=_wr_"
 Environment="MEMCACHED_SERVER="
 Environment="MEMCACHED_PORT=11211"
 Environment="SERVICE_SLUG=webappvfs"
-ExecStart=/opt/local/azure-web-app-vfs/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 --error-logfile /opt/local/azure-web-app-vfs/log/gunicorn.log --log-level 'warn' wsgi:app
+ExecStart=/path/to/venv/bin/gunicorn --workers 3 --bind unix:azurefiles.sock -m 007 --error-logfile /path/to/azure-web-app-vfs/log/gunicorn.log --log-level 'warn' wsgi:app
 
 [Install]
 WantedBy=multi-user.target
