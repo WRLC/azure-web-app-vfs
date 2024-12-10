@@ -1,9 +1,9 @@
 """
 Flask Application Factory
 """
-from flask import Flask, Blueprint, session, redirect, url_for, render_template  # noqa: F401
-from flask.cli import with_appcontext  # noqa: F401
-from app.admin import add_admin, remove_admin
+import click
+from flask import Flask
+from flask.cli import with_appcontext, FlaskGroup
 from app.admin.routes import bp as admin_bp
 from app.credential.routes import bp as credential_bp
 from app.extensions import badrequest, forbidden, internalerror, db
@@ -38,21 +38,7 @@ def create_app(config_class=Config):
     application.register_error_handler(403, forbidden)
     application.register_error_handler(500, internalerror)
 
-    # Create the database schema
-    @application.cli.command('create_db')
-    @with_appcontext
-    def create_db():
-        """
-        Create the database
-
-        :return: None
-        """
-        # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
-        from app.models import file, credential, admin  # noqa: F401
-        with application.app_context():
-            db.create_all()  # Create the database tables
-            print('Database created')
-
+    # Register the CLI commands
     application.cli.add_command(create_db)  # Add the create_db command
     application.cli.add_command(add_admin)  # Add the add_admin command
     application.cli.add_command(remove_admin)  # Add the remove_admin command
@@ -65,3 +51,70 @@ def create_app(config_class=Config):
         return {'app': application, 'db': db}
 
     return application
+
+
+cli = FlaskGroup(create_app=create_app)  # Create the CLI
+
+
+# Create the database schema
+@cli.command('create_db')
+@with_appcontext
+def create_db():
+    """
+    Create the database
+
+    :return: None
+    """
+    # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
+    from app.models import file, credential, admin  # noqa: F401
+    db.create_all()  # Create the database tables
+    print('Database created')
+
+
+@cli.command("add_admin")
+@click.argument("uid")
+@with_appcontext
+def add_admin(uid):
+    """
+    Add an admin
+
+    :param uid: admin UID
+    :return: None
+    """
+    # pylint: disable=wrong-import-position, import-outside-toplevel
+    from app.models.admin import Admin  # noqa: F401
+    admin_user = Admin.get_admin_by_uid(uid)
+
+    if admin_user:
+        print(f"Admin {uid} already exists")
+        return
+
+    admin_user = Admin(uid=uid)
+    db.session.add(admin_user)
+    db.session.commit()
+
+    print(f"Admin {uid} added")
+
+
+@cli.command("remove_admin")
+@click.argument("uid")
+@with_appcontext
+def remove_admin(uid):
+    """
+    Remove an admin
+
+    :param uid: admin UID
+    :return: None
+    """
+    # pylint: disable=wrong-import-position, import-outside-toplevel
+    from app.models.admin import Admin  # noqa: F401
+    admin_user = Admin.get_admin_by_uid(uid)
+
+    if not admin_user:
+        print(f"Admin {uid} does not exist")
+        return
+
+    db.session.delete(admin_user)
+    db.session.commit()
+
+    print(f"Admin {uid} removed")
