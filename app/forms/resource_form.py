@@ -1,15 +1,23 @@
 """
-This file contains the form for the credential model.
+This file contains the form for the File model.
 """
 from flask_wtf import FlaskForm  # type: ignore
-from wtforms import StringField  # type: ignore
-from wtforms.validators import DataRequired  # type: ignore
+from wtforms import StringField, SelectField  # type: ignore
+from wtforms.validators import DataRequired, URL, NoneOf  # type: ignore
 
 
-class CredentialForm(FlaskForm):
+class FileForm(FlaskForm):
     """
-    Credential form
+    File form
     """
+    url = StringField(  # URL field
+        'File URL',  # label
+        description='The Azure Kudo VFS API URL (found in the resource\'s "Advanced Tools")',  # description
+        validators=[  # validators
+            DataRequired(),  # required field
+            URL()  # URL validator
+        ]
+    )
     app_name = StringField(  # app name field
         'App Name',  # label
         description='Ideally the Azure resource\'s name (to easily identify the app)',  # description
@@ -27,7 +35,7 @@ class CredentialForm(FlaskForm):
     )
 
     def __repr__(self):
-        return f'<CredentialForm: {self.app_name.data}>'
+        return f'<FileForm: {self.url.data}>'
 
     def __str__(self):
-        return f'<CredentialForm: {self.app_name.data}>'
+        return f'<FileForm: {self.url.data}>'

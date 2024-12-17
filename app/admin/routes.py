@@ -1,11 +1,12 @@
 """
 This module is used to define the routes for the admin blueprint.
 """
-from flask import render_template, abort, flash, redirect, url_for
-from app.admin import bp
+from flask import render_template, abort, flash, redirect, url_for, Blueprint
 from app.extensions import db
 from app.forms.admin_form import AdminForm
 from app.models.admin import Admin
+
+bp = Blueprint("admin", __name__, url_prefix='/admin')  # Create the admin blueprint
 
 
 @bp.app_template_global()
