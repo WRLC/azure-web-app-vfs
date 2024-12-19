@@ -2,8 +2,8 @@
 This file contains the form for the File model.
 """
 from flask_wtf import FlaskForm  # type: ignore
-from wtforms import StringField, SelectField  # type: ignore
-from wtforms.validators import DataRequired, URL, NoneOf  # type: ignore
+from wtforms import StringField  # type: ignore
+from wtforms.validators import DataRequired, URL  # type: ignore
 
 
 class ResourceForm(FlaskForm):

@@ -1,7 +1,7 @@
 import os
 from typing import TYPE_CHECKING
 from base64 import b64encode
-import requests
+import requests  # type: ignore
 import sqlalchemy.engine.result
 from flask import Response
 from sqlalchemy import String
@@ -47,7 +47,7 @@ class Resource(Model):
         """
         return db.session.execute(db.select(Resource).filter_by(id=resource_id)).scalar_one_or_none()
 
-    def get_files_by_path(self, **kwargs) -> Exception | list | None:
+    def get_files_by_path(self, **kwargs) -> Response | Exception:
         """
         Get files by path
 

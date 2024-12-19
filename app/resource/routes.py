@@ -1,9 +1,6 @@
 """
 Routes for the resource blueprint
 """
-import json
-from email.policy import default
-
 from flask import Blueprint, render_template, flash, redirect, abort, url_for, request, send_file
 from app.extensions import auth_required, db
 from app.forms.resource_form import ResourceForm
