@@ -53,6 +53,6 @@ def new_login():
         user_login = Login(user_data)  # create a new login object
         user_login.user_login(session=session)  # Log the user in
 
-        return redirect(url_for('file.index'))  # Redirect to the home page
+        return redirect(url_for('home.index'))  # Redirect to the home page
 
     return "no login cookie"  # if the login cookie is not present, return an error
