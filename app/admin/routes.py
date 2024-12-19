@@ -1,11 +1,12 @@
 """
 This module is used to define the routes for the admin blueprint.
 """
-from flask import render_template, abort, flash, redirect, url_for
-from app.admin import bp
+from flask import render_template, abort, flash, redirect, url_for, Blueprint
 from app.extensions import db
 from app.forms.admin_form import AdminForm
 from app.models.admin import Admin
+
+bp = Blueprint("admin", __name__, url_prefix='/admin')  # Create the admin blueprint
 
 
 @bp.app_template_global()
@@ -32,7 +33,7 @@ def index():
     )
 
 
-@bp.route('/new', methods=['GET', 'POST'])
+@bp.route('/new/', methods=['GET', 'POST'])
 def new():
     """
     The new route for the admin blueprint.
@@ -48,7 +49,7 @@ def new():
     )
 
 
-@bp.route('/<uid>', methods=['GET', 'POST'])
+@bp.route('/<uid>/', methods=['GET', 'POST'])
 def edit(uid):
     """
     The edit route for the admin blueprint.
@@ -79,7 +80,7 @@ def edit(uid):
     )
 
 
-@bp.route('/<uid>/delete', methods=['GET', 'POST'])
+@bp.route('/<uid>/delete/', methods=['GET', 'POST'])
 def delete(uid):
     """
     The delete route for the admin blueprint.

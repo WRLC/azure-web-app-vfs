@@ -4,11 +4,16 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="{{ url_for('file.index') }}">Home</a>
+                <a href="{{ url_for('home.index') }}">Home</a>
             </li>
             <li class="breadcrumb-item">
-                <a href="{{ url_for('credential.index') }}">App Credentials</a>
+                <a href="{{ url_for('resource.index') }}">Resources</a>
             </li>
+            {% if resource is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('resource.view', name=resource.name) }}">{{ resource.name }}</a>
+                </li>
+            {% endif %}
             <li class="breadcrumb-item active">{{ title }}</li>
         </ol>
     </nav>
@@ -18,10 +23,34 @@
         <div class="mb-3 required">
             {{ form.app_name.label(class="form-label") }}
             {{ form.app_name(class="form-control") }}
-            <small id="app_nameHelp" class="form-text text-muted">{{ form.app_name.description }}</small>
+            <small id="nameHelp" class="form-text text-muted">{{ form.app_name.description }}</small>
             {% if form.app_name.errors %}
                 <div class="alert alert-danger" role="alert">
                     {% for error in form.app_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.app_description.label(class="form-label") }}
+            {{ form.app_description(class="form-control") }}
+            <small id="descriptionHelp" class="form-text text-muted">{{ form.app_description.description }}</small>
+            {% if form.app_description.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.app_description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.url.label(class="form-label") }}
+            {{ form.url(class="form-control") }}
+            <small id="urlHelp" class="form-text text-muted">{{ form.url.description }}</small>
+            {% if form.url.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.url.errors %}
                         {{ error }}
                     {% endfor %}
                 </div>
@@ -51,9 +80,6 @@
                 </div>
             {% endif %}
         </div>
-        <div class="actions">
-            <input type="submit" value="{{ title }}" class="btn btn-primary">
-            <a href="{{ url_for('credential.index') }}" class="btn btn-dark">Cancel</a>
-        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
     </form>
 {% endblock %}

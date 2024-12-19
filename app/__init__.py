@@ -4,12 +4,7 @@ Flask Application Factory
 import click
 from flask import Flask
 from flask.cli import with_appcontext, FlaskGroup
-from app.admin.routes import bp as admin_bp
-from app.credential.routes import bp as credential_bp
 from app.extensions import badrequest, forbidden, internalerror, db
-from app.file.routes import bp as file_bp
-from app.home.routes import bp as home_bp
-from app.login.routes import bp as login_bp
 from config import Config
 
 
@@ -27,11 +22,21 @@ def create_app(config_class=Config):
     db.init_app(application)  # Initialize the database
 
     # Register blueprints here
+    # pylint: disable=wrong-import-position, import-outside-toplevel
+    from app.home import bp as home_bp  # noqa: F401
     application.register_blueprint(home_bp)  # Register the home blueprint
+
+    # pylint: disable=wrong-import-position, import-outside-toplevel
+    from app.login import bp as login_bp  # noqa: F401
     application.register_blueprint(login_bp)  # Register the login blueprint
-    application.register_blueprint(file_bp)  # Register the file blueprint
-    application.register_blueprint(credential_bp)  # Register the credential blueprint
+
+    # pylint: disable=wrong-import-position, import-outside-toplevel
+    from app.admin import bp as admin_bp  # noqa: F401
     application.register_blueprint(admin_bp)  # Register the admin blueprint
+
+    # pylint: disable=wrong-import-position, import-outside-toplevel
+    from app.resource import bp as resource_bp  # noqa: F401
+    application.register_blueprint(resource_bp)  # Register the resource blueprint
 
     # Register error handlers
     application.register_error_handler(400, badrequest)
@@ -66,7 +71,7 @@ def create_db():
     :return: None
     """
     # pylint: disable=wrong-import-position, import-outside-toplevel, unused-import
-    from app.models import file, credential, admin  # noqa: F401
+    from app.models import admin, resource  # noqa: F401
     db.create_all()  # Create the database tables
     print('Database created')
 

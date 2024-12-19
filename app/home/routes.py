@@ -1,9 +1,10 @@
 """
 Home routes
 """
-from flask import session, redirect, current_app, url_for
+from flask import session, redirect, current_app, url_for, Blueprint
 from app.extensions import auth_required
-from app.home import bp
+
+bp = Blueprint('home', __name__)  # Create the home blueprint
 
 
 @bp.route('/')
@@ -14,7 +15,7 @@ def index():
 
     :return: Redirect to the file index
     """
-    return redirect(url_for('file.index'))  # redirect to the file index
+    return redirect(url_for('resource.index'))  # redirect to the file index
 
 
 @bp.route('/logout/')

@@ -2,9 +2,7 @@
 The home blueprint is used to define the home page of the application.
 """
 import os
-from flask import Blueprint
-
-bp = Blueprint('home', __name__)  # Create the home blueprint
+from app.home.routes import bp  # noqa
 
 
 @bp.app_template_filter('basename_filter')
