@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('home.index') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('resource.index') }}">Resources</a>
+            </li>
+            {% if resource is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('resource.view', resource_id=resource.id) }}">{{ resource.app_name }}</a>
+                </li>
+            {% endif %}
+            {% set cumulative_path = namespace(value='') %}
+            {% for crumb in path %}
+                {% if not loop.first %}
+                    {% set cumulative_path.value = cumulative_path.value ~ '/' ~ crumb %}
+                {% else %}
+                    {% set cumulative_path.value = crumb %}
+                {% endif %}
+                {% if not loop.last %}
+                    <li class="breadcrumb-item">
+                        <a href="{{ url_for('resource.view', resource_id=resource.id, path=cumulative_path.value) }}">{{ crumb }}</a>
+                    </li>
+                {% else %}
+                    <li class="breadcrumb-item active">{{ crumb }}</li>
+                {% endif %}
+            {% endfor %}
+        </ol>
+    </nav>
+    <h1>{{ title }}</h1>
+    <table class="table table-striped table-sm">
+        <thead class="table-dark">
+            <tr>
+                <th scope="col" class="col-5">Name</th>
+                <th scope="col" class="col-1">Size</th>
+                <th scope="col" class="col-6">Last Modified</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for folder in folders %}
+                <tr>
+                    <td>
+                        <i class="fa-solid fa-folder"></i>
+                        <a href="{{ url_for('resource.view', resource_id=resource.id, path=path | join('/') + '/' + folder.name) }}">
+                            {{ folder.name }}
+                        </a>
+                    </td>
+                    <td>
+                        {% if folder.size != 0 %}
+                            {{ folder.size }}
+                        {% endif %}
+                    </td>
+                    <td>{{ folder.mtime }}</td>
+                </tr>
+            {% endfor %}
+            {% for file in files %}
+                <tr>
+                    <td>
+                        <i class="fa-solid fa-file-arrow-down"></i>
+                        <a href="{{ url_for('resource.download', resource_id=resource.id, path=path | join('/') + '/' + file.name) }}">
+                            {{ file.name }}
+                        </a>
+                    </td>
+                    <td>{{ file.size }}</td>
+                    <td>{{ file.mtime }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

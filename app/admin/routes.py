@@ -33,7 +33,7 @@ def index():
     )
 
 
-@bp.route('/new', methods=['GET', 'POST'])
+@bp.route('/new/', methods=['GET', 'POST'])
 def new():
     """
     The new route for the admin blueprint.
@@ -49,7 +49,7 @@ def new():
     )
 
 
-@bp.route('/<uid>', methods=['GET', 'POST'])
+@bp.route('/<uid>/', methods=['GET', 'POST'])
 def edit(uid):
     """
     The edit route for the admin blueprint.
@@ -80,7 +80,7 @@ def edit(uid):
     )
 
 
-@bp.route('/<uid>/delete', methods=['GET', 'POST'])
+@bp.route('/<uid>/delete/', methods=['GET', 'POST'])
 def delete(uid):
     """
     The delete route for the admin blueprint.

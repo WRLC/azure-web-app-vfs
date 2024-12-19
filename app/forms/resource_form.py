@@ -6,22 +6,26 @@ from wtforms import StringField, SelectField  # type: ignore
 from wtforms.validators import DataRequired, URL, NoneOf  # type: ignore
 
 
-class FileForm(FlaskForm):
+class ResourceForm(FlaskForm):
     """
     File form
     """
+    app_name = StringField(  # app name field
+        'Name',  # label
+        description='The Azure resource\'s name',  # description
+        validators=[DataRequired()]  # required field
+    )
+    app_description = StringField(  # app description field
+        'Description',  # label
+        description='A brief description of the Azure resource',  # description
+    )
     url = StringField(  # URL field
-        'File URL',  # label
+        'API URL',  # label
         description='The Azure Kudo VFS API URL (found in the resource\'s "Advanced Tools")',  # description
         validators=[  # validators
             DataRequired(),  # required field
             URL()  # URL validator
         ]
-    )
-    app_name = StringField(  # app name field
-        'App Name',  # label
-        description='Ideally the Azure resource\'s name (to easily identify the app)',  # description
-        validators=[DataRequired()]  # required field
     )
     username = StringField(  # username field
         'Username',  # label

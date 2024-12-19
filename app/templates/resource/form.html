@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <nav aria-label="breadcrumb">
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('home.index') }}">Home</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{{ url_for('resource.index') }}">Resources</a>
+            </li>
+            {% if resource is defined %}
+                <li class="breadcrumb-item">
+                    <a href="{{ url_for('resource.view', name=resource.name) }}">{{ resource.name }}</a>
+                </li>
+            {% endif %}
+            <li class="breadcrumb-item active">{{ title }}</li>
+        </ol>
+    </nav>
+    <h1>{{ title }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        <div class="mb-3 required">
+            {{ form.app_name.label(class="form-label") }}
+            {{ form.app_name(class="form-control") }}
+            <small id="nameHelp" class="form-text text-muted">{{ form.app_name.description }}</small>
+            {% if form.app_name.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.app_name.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.app_description.label(class="form-label") }}
+            {{ form.app_description(class="form-control") }}
+            <small id="descriptionHelp" class="form-text text-muted">{{ form.app_description.description }}</small>
+            {% if form.app_description.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.app_description.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.url.label(class="form-label") }}
+            {{ form.url(class="form-control") }}
+            <small id="urlHelp" class="form-text text-muted">{{ form.url.description }}</small>
+            {% if form.url.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.url.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.username.label(class="form-label") }}
+            {{ form.username(class="form-control") }}
+            <small id="usernameHelp" class="form-text text-muted">{{ form.username.description }}</small>
+            {% if form.username.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.username.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <div class="mb-3 required">
+            {{ form.password.label(class="form-label") }}
+            {{ form.password(class="form-control") }}
+            <small id="passwordHelp" class="form-text text-muted">{{ form.password.description }}</small>
+            {% if form.password.errors %}
+                <div class="alert alert-danger" role="alert">
+                    {% for error in form.password.errors %}
+                        {{ error }}
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Save</button>
+    </form>
+{% endblock %}
