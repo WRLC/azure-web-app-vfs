@@ -11,7 +11,7 @@
             </li>
             {% if resource is defined %}
                 <li class="breadcrumb-item">
-                    <a href="{{ url_for('resource.view', name=resource.name) }}">{{ resource.name }}</a>
+                    <a href="{{ url_for('resource.view', resource_id=resource.id) }}">{{ resource.name }}</a>
                 </li>
             {% endif %}
             <li class="breadcrumb-item active">{{ title }}</li>

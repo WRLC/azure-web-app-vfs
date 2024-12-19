@@ -4,7 +4,7 @@
 ![mypy](https://github.com/WRLC/azure-web-app-vfs/actions/workflows/mypy.yml/badge.svg)
 ![Flake8](https://github.com/WRLC/azure-web-app-vfs/actions/workflows/flake8.yml/badge.svg)
 
-Flask app to download files from Azure services via Kudu VFS API.
+Flask app to browse and download files from Azure services via Kudu VFS API.
 
 ## Local Development
 
@@ -165,29 +165,21 @@ The included docker-compose file sets these environment variables for local deve
 
 ### Adding Files
 
-Initially no files will be available to download. Before adding a file, an admin should add an application credential by navigating to `/credentials` and clicking the "Add App Credential" button.
+Initially no resources will be available for file browsing and downloading. An admin user will need to add a resource at `/resource/new` (or by clicking the "Add Resource" button on the home page).
 
-![Add App Credential](addappcred.png)
+![Add App Credential](addresource.png)
 
-The following fields are required to add an app credential:
+The following fields are required to add a resource:
 
-* `App Name` - Name of the application; Ideally the name of the Azure resource containing file(s) to download (to easily identify the app)
-* `Username` - Username for the Azure resource (Probably the FTPS username from the resource's Deployment Center)
-* `Password` - Password for the Azure resource (Probably the FTPS password from the resource's Deployment Center)
-
-Once an app credential is added, an admin can add files by navigating to `/files` and clicking the "Add File" button.
-
-![Add File](addfile.png)
-
-The following fields are required to add a file:
-
-* `File URL` - The file's Azure Kudu VFS URL (found in the Azure portal in the resource's Deployment Center)
-* `App Credential` - The app credential (added above) used to access the file
+* `Name` - The Azure resource's name
+* `API URL` - The Azure resource's Kudu API URL (the link value for the "Files" option under "Rest API" in the resource's Advanced Tools, probably `https://<resource_name>.scm.azurewebsites.net/api/vfs`)
+* `Username` - The FTPS username from the resource's Deployment Center in the Azure portal
+* `Password` - The FTPS password from the resource's Deployment Center in the Azure portal
 
 ### Downloading Files
 
 To use the application, users must log in with their SSO credentials.
 
-Once logged in, users should see a list of files available for download. Clicking a filename will download the file to the user's device.
+Once logged in, users should see a list of resources. Clicking a resource name will open file browsing for the resource. Clicking a file name will download the file. Clicking a folder name will open that folder.
 
 ![Download File](downloadfile.png)
