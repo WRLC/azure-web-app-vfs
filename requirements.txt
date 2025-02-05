@@ -30,7 +30,7 @@ platformdirs==4.3.6
 pycodestyle==2.12.1
 pycparser==2.22
 pyflakes==3.2.0
-pylint==3.3.3
+pylint==3.3.4
 pymemcache==4.0.0
 python-dotenv==1.0.1
 requests==2.32.3
