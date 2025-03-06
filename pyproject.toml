@@ -5,7 +5,7 @@ package-mode = false
 [tool.poetry.dependencies]
 python = "^3.11"
 astroid = "^3.3.5"
-bcrypt = "^4.2.0"
+bcrypt = "^4.3.0"
 blinker = "^1.9.0"
 certifi = "^2025.1.31"
 cffi = "^1.17.1"
