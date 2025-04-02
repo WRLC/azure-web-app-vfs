@@ -9,7 +9,7 @@ jobs:
 
     steps:
     - name: Install mariadb dependencies
-      run: sudo apt install libmariadb3 libmariadb-dev
+      run: sudo apt update && sudo apt install libmariadb3 libmariadb-dev
 
     - name: Checkout code
       uses: actions/checkout@v4
