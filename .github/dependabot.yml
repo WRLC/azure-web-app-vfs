@@ -9,3 +9,7 @@ updates:
     directory: "/" # Location of package manifests
     schedule:
       interval: "weekly"
+    target-branch: "dependency-updates" # Dependabot PRs go here instead of main
+    commit-message:
+      prefix: "deps"
+      include: "scope"
