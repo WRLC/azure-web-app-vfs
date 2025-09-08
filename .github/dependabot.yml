@@ -32,18 +32,3 @@ updates:
     groups:
       terraform:
         applies-to: version-updates
-
-  - package-ecosystem: "github-actions" # See documentation for possible values
-    directory: "/" # Location of package manifests
-    schedule:
-      interval: "weekly"
-      day: "monday"
-      time: "09:00"
-      timezone: "America/New_York"
-    target-branch: "feature/dependency-updates"
-    commit-message:
-      prefix: "deps"
-      include: "scope"
-    groups:
-      github-actions:
-        applies-to: version-updates
