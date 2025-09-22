@@ -1,0 +1,27 @@
+name: Test Dependabot Updates
+
+on:
+  pull_request:
+    branches:
+      - feature/dependency-updates
+    types: [opened, synchronize, reopened]
+
+jobs:
+  test-imports:
+    if: github.actor == 'dependabot[bot]'
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install Poetry
+      uses: snok/install-poetry@v1
+
+    - name: Install project
+      run: poetry install --no-interaction
